@@ -37,6 +37,7 @@
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.edInvestment = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -51,6 +52,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.edEmployee = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edInvestment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edAds)).BeginInit();
@@ -58,10 +61,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.edService)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edRevenue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edEmployee)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.edEmployee);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.edInvestment);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.edAds);
@@ -75,71 +81,63 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1359, 123);
+            this.panel1.Size = new System.Drawing.Size(1128, 100);
             this.panel1.TabIndex = 0;
             // 
             // edInvestment
             // 
-            this.edInvestment.Location = new System.Drawing.Point(199, 87);
-            this.edInvestment.Margin = new System.Windows.Forms.Padding(4);
+            this.edInvestment.Location = new System.Drawing.Point(149, 71);
             this.edInvestment.Name = "edInvestment";
-            this.edInvestment.Size = new System.Drawing.Size(160, 22);
+            this.edInvestment.Size = new System.Drawing.Size(120, 20);
             this.edInvestment.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 90);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(12, 73);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 16);
+            this.label5.Size = new System.Drawing.Size(74, 13);
             this.label5.TabIndex = 9;
             this.label5.Text = "Инвенстиции";
             // 
             // edAds
             // 
-            this.edAds.Location = new System.Drawing.Point(627, 60);
-            this.edAds.Margin = new System.Windows.Forms.Padding(4);
+            this.edAds.Location = new System.Drawing.Point(470, 49);
             this.edAds.Name = "edAds";
-            this.edAds.Size = new System.Drawing.Size(160, 22);
+            this.edAds.Size = new System.Drawing.Size(120, 20);
             this.edAds.TabIndex = 8;
             // 
             // edVisitor
             // 
-            this.edVisitor.Location = new System.Drawing.Point(627, 26);
-            this.edVisitor.Margin = new System.Windows.Forms.Padding(4);
+            this.edVisitor.Location = new System.Drawing.Point(470, 21);
             this.edVisitor.Name = "edVisitor";
-            this.edVisitor.Size = new System.Drawing.Size(160, 22);
+            this.edVisitor.Size = new System.Drawing.Size(120, 20);
             this.edVisitor.TabIndex = 7;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(421, 34);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(316, 28);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 16);
+            this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Посетители";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(421, 63);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(316, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 16);
+            this.label3.Size = new System.Drawing.Size(108, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Рекламный бюджет";
             // 
             // bt1
             // 
-            this.bt1.Location = new System.Drawing.Point(864, 26);
-            this.bt1.Margin = new System.Windows.Forms.Padding(4);
+            this.bt1.Location = new System.Drawing.Point(648, 21);
             this.bt1.Name = "bt1";
-            this.bt1.Size = new System.Drawing.Size(127, 44);
+            this.bt1.Size = new System.Drawing.Size(95, 36);
             this.bt1.TabIndex = 4;
             this.bt1.Text = "Simulate";
             this.bt1.UseVisualStyleBackColor = true;
@@ -147,27 +145,24 @@
             // 
             // edService
             // 
-            this.edService.Location = new System.Drawing.Point(199, 54);
-            this.edService.Margin = new System.Windows.Forms.Padding(4);
+            this.edService.Location = new System.Drawing.Point(149, 44);
             this.edService.Name = "edService";
-            this.edService.Size = new System.Drawing.Size(160, 22);
+            this.edService.Size = new System.Drawing.Size(120, 20);
             this.edService.TabIndex = 3;
             // 
             // edRevenue
             // 
-            this.edRevenue.Location = new System.Drawing.Point(199, 26);
-            this.edRevenue.Margin = new System.Windows.Forms.Padding(4);
+            this.edRevenue.Location = new System.Drawing.Point(149, 21);
             this.edRevenue.Name = "edRevenue";
-            this.edRevenue.Size = new System.Drawing.Size(160, 22);
+            this.edRevenue.Size = new System.Drawing.Size(120, 20);
             this.edRevenue.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 63);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(167, 16);
+            this.label2.Size = new System.Drawing.Size(131, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Дополнительные услуги";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -175,10 +170,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 16);
+            this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Доход";
             // 
@@ -189,8 +183,7 @@
             this.chart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart.Legends.Add(legend1);
-            this.chart.Location = new System.Drawing.Point(52, 130);
-            this.chart.Margin = new System.Windows.Forms.Padding(4);
+            this.chart.Location = new System.Drawing.Point(0, 97);
             this.chart.Name = "chart";
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
@@ -225,25 +218,46 @@
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series6.Legend = "Legend1";
             series6.Name = "Качество инфраструктуры";
+            series7.BorderWidth = 3;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Legend = "Legend1";
+            series7.Name = "Персонал";
             this.chart.Series.Add(series1);
             this.chart.Series.Add(series2);
             this.chart.Series.Add(series3);
             this.chart.Series.Add(series4);
             this.chart.Series.Add(series5);
             this.chart.Series.Add(series6);
-            this.chart.Size = new System.Drawing.Size(1001, 567);
+            this.chart.Series.Add(series7);
+            this.chart.Size = new System.Drawing.Size(751, 461);
             this.chart.TabIndex = 1;
             this.chart.Text = "chart";
             this.chart.Click += new System.EventHandler(this.chart_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(316, 73);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Персонал";
+            // 
+            // edEmployee
+            // 
+            this.edEmployee.Location = new System.Drawing.Point(470, 71);
+            this.edEmployee.Name = "edEmployee";
+            this.edEmployee.Size = new System.Drawing.Size(120, 20);
+            this.edEmployee.TabIndex = 12;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1359, 729);
+            this.ClientSize = new System.Drawing.Size(1128, 567);
             this.Controls.Add(this.chart);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
@@ -254,6 +268,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.edService)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edRevenue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.edEmployee)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -274,6 +289,8 @@
         private System.Windows.Forms.NumericUpDown edInvestment;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.NumericUpDown edEmployee;
+        private System.Windows.Forms.Label label6;
     }
 }
 

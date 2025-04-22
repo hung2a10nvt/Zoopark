@@ -19,6 +19,7 @@ namespace Zoopark
         private List<int> visitorData = new List<int>();
         private List<double> adsData = new List<double>();
         private List<double> infrastructureData = new List<double>();
+        private List<int> employeeData = new List<int>();
 
         private int currentPeriod = 0;
         private const int totalPeriods = 12;
@@ -55,6 +56,7 @@ namespace Zoopark
             currentInvestment = (double)edInvestment.Value;
             currentVisitors = (int)edVisitor.Value;
             currentAds = (double)edAds.Value;
+            currentEmployee = (int)edEmployee.Value;
             currentInfrastructure = 5.0;
             currentQualityAnimalHusbandry = 100.0;
             currentEmployee = 10;
@@ -111,6 +113,7 @@ namespace Zoopark
             visitorData.Add(currentVisitors);
             adsData.Add(currentAds);
             infrastructureData.Add(currentInfrastructure);
+            employeeData.Add(currentEmployee);
 
             chart.Series[0].Points.AddXY(currentPeriod,currentRevenue);
             chart.Series[1].Points.AddXY(currentPeriod, currentService);
@@ -118,6 +121,7 @@ namespace Zoopark
             chart.Series[3].Points.AddXY(currentPeriod, currentVisitors);
             chart.Series[4].Points.AddXY(currentPeriod, currentAds);
             chart.Series[5].Points.AddXY(currentPeriod, currentInfrastructure);
+            chart.Series[6].Points.AddXY(currentPeriod, currentEmployee);
 
             chart.Series[0].Points[currentPeriod].AxisLabel = (currentPeriod).ToString();
         }
@@ -186,6 +190,7 @@ namespace Zoopark
             visitorData.Clear();
             adsData.Clear();
             infrastructureData.Clear();
+            employeeData.Clear();
 
             foreach (var series in chart.Series)
             {
