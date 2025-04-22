@@ -22,8 +22,10 @@ namespace Zoopark
 
         private int currentPeriod = 0;
         private const int totalPeriods = 12;
-        private double currentRevenue, currentService, currentInvestment, currentAds, currentInfrastructure;
-        private int currentVisitors;
+        private double salaries = 50.0;
+        private int hardWork = 11; // необходимое количество сотрудников
+        private double currentRevenue, currentService, currentInvestment, currentAds, currentInfrastructure, currentQualityAnimalHusbandry;
+        private int currentVisitors, currentEmployee;
         private Timer simulationTimer;
         public Form1()
         {
@@ -39,6 +41,11 @@ namespace Zoopark
 
         }
 
+        private void chart_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void bt1_Click(object sender, EventArgs e)
         {
             ClearData();
@@ -49,11 +56,35 @@ namespace Zoopark
             currentVisitors = (int)edVisitor.Value;
             currentAds = (double)edAds.Value;
             currentInfrastructure = 5.0;
+            currentQualityAnimalHusbandry = 100.0;
+            currentEmployee = 10;
 
             currentPeriod = 0;
+
+            revenueData.Add(currentRevenue);
+            serviceData.Add(currentService);
+            investmentData.Add(currentInvestment);
+            visitorData.Add(currentVisitors);
+            adsData.Add(currentAds);
+            infrastructureData.Add(currentInfrastructure);
+
+            chart.Series[0].Points.AddXY(currentPeriod, currentRevenue);
+            chart.Series[1].Points.AddXY(currentPeriod, currentService);
+            chart.Series[2].Points.AddXY(currentPeriod, currentInvestment);
+            chart.Series[3].Points.AddXY(currentPeriod, currentVisitors);
+            chart.Series[4].Points.AddXY(currentPeriod, currentAds);
+            chart.Series[5].Points.AddXY(currentPeriod, currentInfrastructure);
+
+            
+            chart.Series[0].Points[currentPeriod].AxisLabel = (currentPeriod).ToString();
+
+            
             simulationTimer.Start();
         }
 
+        /// <summary>
+        /// Обработчик тика таймера - основной цикл симуляции
+        /// </summary
         private void SimulationTimer_Tick(object sender, EventArgs e)
         {
             if (currentPeriod >= totalPeriods)
@@ -68,8 +99,12 @@ namespace Zoopark
                 ref currentInvestment,
                 ref currentVisitors,
                 ref currentInfrastructure,
-                ref currentAds);
+                ref currentAds,
+                 ref currentEmployee,
+                 ref currentQualityAnimalHusbandry
+                );
 
+            currentPeriod++;
             revenueData.Add(currentRevenue);
             serviceData.Add(currentService);
             investmentData.Add(currentInvestment);
@@ -77,17 +112,19 @@ namespace Zoopark
             adsData.Add(currentAds);
             infrastructureData.Add(currentInfrastructure);
 
-            chart.Series[0].Points.AddY(currentRevenue);
-            chart.Series[1].Points.AddY(currentService);
-            chart.Series[2].Points.AddY(currentInvestment);
-            chart.Series[3].Points.AddY(currentVisitors);
-            chart.Series[4].Points.AddY(currentAds);
-            chart.Series[5].Points.AddY(currentInfrastructure);
+            chart.Series[0].Points.AddXY(currentPeriod,currentRevenue);
+            chart.Series[1].Points.AddXY(currentPeriod, currentService);
+            chart.Series[2].Points.AddXY(currentPeriod, currentInvestment);
+            chart.Series[3].Points.AddXY(currentPeriod, currentVisitors);
+            chart.Series[4].Points.AddXY(currentPeriod, currentAds);
+            chart.Series[5].Points.AddXY(currentPeriod, currentInfrastructure);
 
-            chart.Series[0].Points[currentPeriod].AxisLabel = (currentPeriod + 1).ToString();
-
-            currentPeriod++;
+            chart.Series[0].Points[currentPeriod].AxisLabel = (currentPeriod).ToString();
         }
+
+        /// <summary>
+        /// Основная логика расчета показателей для каждого периода
+        /// </summary>
 
         private void UpdateSimulationData(int period,
             ref double revenue,
@@ -95,18 +132,52 @@ namespace Zoopark
             ref double investment,
             ref int visitors,
             ref double infrastructure,
-            ref double ads)
+            ref double ads,
+            ref int employee,
+            ref double qualityAnimalHusbandry
+            )
         {
-            ads = revenue * 0.1;
+
+            // Формулы расчета показателей:
+            ads = revenue * 0.1; // Реклама - 10% от дохода
+
+            // Расчет сотрудников
+            int hiring = (int)((revenue * 0.3) / salaries);
+            employee += hiring;
+            double afterHiring = revenue * 0.3 - (int)((revenue * 0.3) / salaries);// остаток 
+
+            qualityAnimalHusbandry = qualityAnimalHusbandry * 0.5 +  (qualityAnimalHusbandry * employee / hardWork) * 0.5;
+
+            
+
+            // Инфраструктура: 90% текущего значения + 10% от инвестиций
             infrastructure = infrastructure * 0.9 + investment * 0.1;
 
+
+            // Расчет посетителей: ограничение максимум 1000, 
+            // 95% от текущих + влияние инфраструктуры + рекламы + качество содержания животных
             double maxVisitors = 1000;
-            visitors = (int)Math.Min(maxVisitors, visitors * 0.95 + infrastructure * 3 + ads * 0.1);
+            visitors = (int)Math.Min(
+                maxVisitors,
+                visitors * 0.95 + infrastructure * 3 + ads * 0.1 + qualityAnimalHusbandry * 0.1
+            );
+
+            // Качество сервиса: зависит от посетителей и дохода
             service = visitors * 2.5 + revenue * 0.05;
+
+            // Инвестиции: 30% от рекламы + 12% от дохода
             investment = ads * 0.3 + revenue * 0.12;
-            revenue = revenue * 0.4 + visitors * 2.5 + service * 0.4;
+
+            // Доход: 40% от предыдущего + вклад посетителей и сервиса
+            revenue = revenue * 0.4 + visitors * 2.5 + service * 0.4 + afterHiring;
+
+
+            employee -= (int)Math.Min(3, (employee >= hardWork) ? 0 : hardWork - employee);
         }
 
+        /// <summary>
+        /// Очистка данных и графика перед новым запуском
+        /// </summary>
         private void ClearData()
         {
             revenueData.Clear();
