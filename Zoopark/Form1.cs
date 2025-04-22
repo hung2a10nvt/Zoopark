@@ -74,8 +74,8 @@ namespace Zoopark
             chart.Series[3].Points.AddXY(currentPeriod, currentVisitors);
             chart.Series[4].Points.AddXY(currentPeriod, currentAds);
             chart.Series[5].Points.AddXY(currentPeriod, currentInfrastructure);
+            chart.Series[6].Points.AddXY(currentPeriod, currentEmployee);
 
-            
             chart.Series[0].Points[currentPeriod].AxisLabel = (currentPeriod).ToString();
 
             
@@ -118,7 +118,7 @@ namespace Zoopark
             chart.Series[3].Points.AddXY(currentPeriod, currentVisitors);
             chart.Series[4].Points.AddXY(currentPeriod, currentAds);
             chart.Series[5].Points.AddXY(currentPeriod, currentInfrastructure);
-
+            chart.Series[6].Points.AddXY(currentPeriod, currentEmployee);
             chart.Series[0].Points[currentPeriod].AxisLabel = (currentPeriod).ToString();
         }
 
@@ -145,6 +145,7 @@ namespace Zoopark
             int hiring = (int)((revenue * 0.3) / salaries);
             employee += hiring;
             double afterHiring = revenue * 0.3 - (int)((revenue * 0.3) / salaries);// остаток 
+
 
             qualityAnimalHusbandry = qualityAnimalHusbandry * 0.5 +  (qualityAnimalHusbandry * employee / hardWork) * 0.5;
 
